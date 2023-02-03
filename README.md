@@ -5,3 +5,9 @@ Multispeed Fan Classifier that accompanies the
 tutorial.
 
 Download NanoEdge AI Studio Link : https://stm32ai.st.com/download-nanoedgeai/
+
+## NUCLEO-F411RE board Pinout
+![NUCLEO-F411RE](https://github.com/hanyi00i/stm32-nanoedge/blob/main/Image/NUCLEO-F411RE.png)
+
+## NUCLEO-L432KC board Pinout
+![NUCLEO-L432KC](https://github.com/hanyi00i/stm32-nanoedge/blob/main/Image/NUCLEO-L432KC.png)
