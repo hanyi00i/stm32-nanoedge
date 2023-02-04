@@ -6,6 +6,10 @@ tutorial.
 
 Download NanoEdge AI Studio Link : https://stm32ai.st.com/download-nanoedgeai/
 
+[Code for Data Logging 🙂](https://github.com/hanyi00i/stm32-nanoedge/blob/main/Logging/main.c)<br/>
+[Code for Class Detection 😊](https://github.com/hanyi00i/stm32-nanoedge/blob/main/Detection/main.c)
+
+
 ## NUCLEO-F411RE board Pinout
 ![NUCLEO-F411RE](https://github.com/hanyi00i/stm32-nanoedge/blob/main/Image/NUCLEO-F411RE.png)
 
