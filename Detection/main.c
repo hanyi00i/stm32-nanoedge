@@ -43,7 +43,7 @@
 #define BUFFER_SIZE     512
 #define NB_AXES         3
 #define CLASS_NUMBER	2
-//uint16_t input_user_buffer[BUFFER_SIZE * NB_AXES]; // Buffer of input values
+//float input_user_buffer[BUFFER_SIZE * NB_AXES]; // Buffer of input values
 float output_class_buffer[CLASS_NUMBER]; // Buffer of class probabilities
 const char *id2class[CLASS_NUMBER + 1] = { // Buffer for mapping class id to class name
 	"unknown",
@@ -82,7 +82,7 @@ uint8_t buff[64];
 uint16_t x = 1;
 uint16_t y = 2;
 uint16_t z = 3;
-uint16_t acc_buffer[1536];
+float acc_buffer[1536];
 uint16_t class_number;
 uint16_t id_class = 0; // Point to id class (see argument of neai_classification fct)
 
@@ -190,12 +190,12 @@ int main(void)
 	    	  i--; // New data not ready
 	      }
 	   }
-	   for (uint16_t isample = 0; isample < NB_AXES * BUFFER_SIZE - 1; isample++) {
-		   sprintf((char*)buf, "%d ", acc_buffer[isample]);
-		   HAL_UART_Transmit(&huart2, buf, strlen((char*)buf), HAL_MAX_DELAY);
-	   }
-	  sprintf((char*)buf, "%d\n", acc_buffer[NB_AXES * BUFFER_SIZE] -1);
-	  HAL_UART_Transmit(&huart2, buf, strlen((char*)buf), HAL_MAX_DELAY);
+//	   for (uint16_t isample = 0; isample < NB_AXES * BUFFER_SIZE - 1; isample++) {
+//		   sprintf((char*)buf, "%.4f ", acc_buffer[isample]);
+//		   HAL_UART_Transmit(&huart2, buf, strlen((char*)buf), HAL_MAX_DELAY);
+//	   }
+//	  sprintf((char*)buf, "%.4f\n", acc_buffer[NB_AXES * BUFFER_SIZE] -1);
+//	  HAL_UART_Transmit(&huart2, buf, strlen((char*)buf), HAL_MAX_DELAY);
 
 	  /* Initialization ------------------------------------------------------------*/
 	  enum neai_state error_code = neai_classification_init(knowledge);
@@ -208,14 +208,18 @@ int main(void)
 	  /* Classification ------------------------------------------------------------*/
 	  /* we classify the input signal and get a class id as output */
 
-	  class_number = neai_classification(acc_buffer, output_class_buffer, &id_class);
-	  sprintf((char*)buf, "HAHAHA: %d \n",(uint16_t) (output_class_buffer[1]*100));
+//	  class_number = neai_classification(acc_buffer, output_class_buffer, &id_class);
+	  neai_classification(acc_buffer, output_class_buffer, &id_class);
+
+	  sprintf((char*)buf, "HELLO: %d, cer: %.4f \n",id_class, output_class_buffer[id_class]* 100);
 	  HAL_UART_Transmit(&huart2, buf, strlen((char*)buf), HAL_MAX_DELAY);
-	  //class_number = 2;
+
 	  /* we print the result to the serial */
-	   sprintf((char*)buff, "Class detected: %s (Certainty: %d%%)\n", id2class[class_number],(uint16_t) (output_class_buffer[class_number - 1] * 100));
+	   sprintf((char*)buff, "Class detected: %s (Certainty: %d %%)\n", id2class[id_class], (uint16_t) (output_class_buffer[id_class - 1] * 100));
 	   HAL_UART_Transmit(&huart2, buff, strlen((char*)buff), HAL_MAX_DELAY);
 	   // the name of the class and the associated probability %
+
+	   HAL_Delay(10);
 
     /* USER CODE END WHILE */
 
