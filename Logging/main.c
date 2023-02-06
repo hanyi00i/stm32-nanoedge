@@ -68,10 +68,10 @@ static void MX_I2C1_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 uint8_t buf[32];
-uint16_t x = 1;
-uint16_t y = 2;
-uint16_t z = 3;
-uint16_t acc_buffer[1536];
+float x = 1;
+float y = 2;
+float z = 3;
+float acc_buffer[1536];
 /* USER CODE END 0 */
 
 /**
@@ -147,10 +147,10 @@ int main(void)
 	   }
 
 	   for (uint16_t isample = 0; isample < NB_AXES * BUFFER_SIZE - 1; isample++) {
-		   sprintf((char*)buf, "%d ", acc_buffer[isample]);
+		   sprintf((char*)buf, "%.4f ", acc_buffer[isample]);
 		   HAL_UART_Transmit(&huart2, buf, strlen((char*)buf), HAL_MAX_DELAY);
 	   }
-	  sprintf((char*)buf, "%d\n", acc_buffer[NB_AXES * BUFFER_SIZE] -1);
+	  sprintf((char*)buf, "%.4f\n", acc_buffer[NB_AXES * BUFFER_SIZE] -1);
 	  HAL_UART_Transmit(&huart2, buf, strlen((char*)buf), HAL_MAX_DELAY);
 
 	  HAL_Delay(1);
