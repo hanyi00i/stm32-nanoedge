@@ -31,10 +31,10 @@ USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*
 #include <stdint.h>
 
 /* Define */
-#define NEAI_ID "63d5f4229e2c80ba76150b56"
+#define NEAI_ID "63e0a7729e2c80ba7615181a"
 #define AXIS_NUMBER 3
 #define DATA_INPUT_USER 512
-#define CLASS_NUMBER 2
+#define CLASS_NUMBER 3
 
 #ifndef __NEAI_STATE__
 #define __NEAI_STATE__
@@ -52,7 +52,7 @@ enum neai_state {
 extern "C" {
 #endif
 	enum neai_state neai_classification_init(const float knowledge_buffer[]);
-	enum neai_state neai_classification(uint16_t input_buffer[], uint16_t output_buffer[], uint16_t *id_class);
+	enum neai_state neai_classification(float input_buffer[], float output_buffer[], uint16_t *id_class);
 #ifdef __cplusplus
 }
 #endif
@@ -69,8 +69,9 @@ float input_user_buffer[DATA_INPUT_USER * AXIS_NUMBER]; // Buffer of input value
 float output_class_buffer[CLASS_NUMBER]; // Buffer of class probabilities
 const char *id2class[CLASS_NUMBER + 1] = { // Buffer for mapping class id to class name
 	"unknown",
-	"Stable",
-	"Move",
+	"stop",
+	"speed_1",
+	"speed_3",
 };
 */
 
